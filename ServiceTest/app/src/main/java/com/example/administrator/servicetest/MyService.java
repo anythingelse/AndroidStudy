@@ -34,15 +34,16 @@ public class MyService extends Service {
         }
         Intent intent = new Intent(this,MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,0);
-        Notification notification = new NotificationCompat.Builder(this)
-                .setContentTitle("This is content title")
-                .setContentText("this is content text")
-                .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher_round))
-                .setContentIntent(pendingIntent)
-                .build();
-        startForeground(1,notification);
+
+        Notification notification =
+                new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+                        .setContentTitle("TEST")
+                        .setContentText("TEST")
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentIntent(pendingIntent)
+                        .setTicker("TEST")
+                        .build();
+        startForeground(1001, notification);
     }
 
     @Override
