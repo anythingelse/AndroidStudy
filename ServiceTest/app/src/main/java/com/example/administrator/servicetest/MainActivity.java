@@ -3,6 +3,7 @@ package com.example.administrator.servicetest;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -45,7 +46,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.btn_start:
                 Intent intent = new Intent(this,MyService.class);
-                startService(intent);
+                if (Build.VERSION.SDK_INT >= 26) {
+                    startForegroundService(intent);
+                } else {
+                    startService(intent);
+                }
+
                 break;
             case R.id.btn_stop:
                 Intent intent1 = new Intent(this,MyService.class);
