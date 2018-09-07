@@ -1,5 +1,6 @@
 package com.example.administrator.servicetest;
 
+import android.app.IntentService;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -7,12 +8,14 @@ import android.os.Build;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button btn_start,btn_stop;
     private Button btn_bind,btn_unbind;
+    private Button btn_startIntentService;
     private MyService.DownloadBinder downloadBinder;
     private ServiceConnection connection = new ServiceConnection() {
         @Override
@@ -35,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_stop = findViewById(R.id.btn_stop);
         btn_bind = findViewById(R.id.btn_bind);
         btn_unbind = findViewById(R.id.btn_unbind);
+        btn_startIntentService = findViewById(R.id.btn_start_intent_service);
+        btn_startIntentService.setOnClickListener(this);
         btn_start.setOnClickListener(this);
         btn_stop.setOnClickListener(this);
         btn_bind.setOnClickListener(this);
@@ -51,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     startService(intent);
                 }
-
                 break;
             case R.id.btn_stop:
                 Intent intent1 = new Intent(this,MyService.class);
@@ -63,6 +67,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_unbind:
                 unbindService(connection);
+                break;
+            case R.id.btn_start_intent_service:
+                Log.d("MainActivity","Thread id is " + Thread.currentThread().getId());
+                Intent intentService = new Intent(this,MyIntentService.class);
+                startService(intentService);
                 break;
                 default:break;
         }

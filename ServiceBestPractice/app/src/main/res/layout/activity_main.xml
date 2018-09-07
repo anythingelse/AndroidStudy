@@ -10,33 +10,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_start"
-        android:text="Start Service"
+        android:text="Start Download"
+        android:textAllCaps="false"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_pause"
+        android:text="Pause Download"
         android:textAllCaps="false"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_stop"
-        android:text="Stop Service"
-        android:textAllCaps="false"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_bind"
-        android:text="Bind Service"
-        android:textAllCaps="false"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_unbind"
-        android:text="UnBind Service"
-        android:textAllCaps="false"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_start_intent_service"
-        android:text="Start IntentService"
+        android:id="@+id/btn_cancel"
+        android:text="Cancel Download"
         android:textAllCaps="false"/>
 
 
