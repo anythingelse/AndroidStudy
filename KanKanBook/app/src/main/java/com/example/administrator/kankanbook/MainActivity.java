@@ -6,9 +6,9 @@ import android.util.Log;
 import android.widget.TextView;
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 import java.io.IOException;
 
@@ -49,23 +49,23 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 // TODO Auto-generated method stub
                 try {
-                    Document doc = (Document) Jsoup.connect("http://www.cnblogs.com/").get();
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder().url("http://www.17k.com/chapter/108821/3148523.html").build();
+                    Response response = client.newCall(request).execute();
+                    String responseData = response.body().string();
+//                    Document doc =  Jsoup.connect("http://www.17k.com/chapter/108821/3148523.html").get();
+                    String temp = responseData.replaceAll("<br />", "\n");
+                    Document doc = Jsoup.parse(temp);
+                    Elements elements = doc.select("div.p");
+                    final String content = elements.text();
+                    Log.e("TAG","content: " + content);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            textView.setText(content);
+                        }
+                    });
 
-                    Elements elements = doc.select("div.post_item_body");
-
-                    for(Element element : elements){
-                        Elements title = element.select("a.titlelnk");
-                        Log.e("title:", title.get(0).text());
-                        Log.e("url", title.get(0).attr("href"));
-
-                        Elements content = element.select("p.post_item_summary");
-                        Log.e("content:", content.get(0).text());
-
-                    }
-
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
                 } catch (Exception e) {
                     // TODO: handle exception
                 }
