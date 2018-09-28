@@ -9,6 +9,7 @@ import android.widget.Button;
 import com.example.administrator.jingcai.db.News;
 import com.example.administrator.jingcai.gson.Data;
 import com.example.administrator.jingcai.gson.Result;
+import com.example.administrator.jingcai.gson.TouTiaoResponse;
 import com.example.administrator.jingcai.util.HttpUtil;
 import com.example.administrator.jingcai.util.Utility;
 import com.google.gson.Gson;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(Call call, Response response) throws IOException {
                         String responseText = response.body().string();
                         Gson gson = new Gson();
-                        List<Data> dataList = gson.fromJson(responseText,new TypeToken<List<Data>>(){}.getType());
+                        List<Data> dataList = gson.fromJson(responseText, TouTiaoResponse.class).result.dataList;
                         for (Data data : dataList){
                             String title = data.title;
                             String date = data.date;
