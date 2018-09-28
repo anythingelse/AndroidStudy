@@ -8,6 +8,7 @@ import android.widget.TextView;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.safety.Whitelist;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
@@ -52,13 +53,15 @@ public class MainActivity extends AppCompatActivity {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder().url("http://www.17k.com/chapter/108821/3148523.html").build();
                     Response response = client.newCall(request).execute();
-                    String responseData = response.body().string();
+                    final String responseData = response.body().string();
 //                    Document doc =  Jsoup.connect("http://www.17k.com/chapter/108821/3148523.html").get();
                     String temp = responseData.replaceAll("<br />", "\n");
                     Document doc = Jsoup.parse(temp);
+                    Log.e("TAG","html:" + temp);
                     Elements elements = doc.select("div.p");
                     final String content = elements.text();
-                    Log.e("TAG","content: " + content);
+                    final String text =Jsoup.clean(temp, "", Whitelist.none(), new Document.OutputSettings().prettyPrint(false));
+                    Log.e("TAG","content: " + text);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
