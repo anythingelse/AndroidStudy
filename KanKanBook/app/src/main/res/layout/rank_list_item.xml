@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_height="wrap_content">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rank_book_name"
+        android:layout_margin="10dp"
+        android:text="圣墟"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:textSize="15sp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rank_book_author"
+        android:text="辰东"
+        android:layout_toEndOf="@+id/rank_book_name"
+        android:textColor="#7091fc"
+        android:textSize="10sp"
+        android:layout_alignBottom="@+id/rank_book_name"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:id="@+id/rank_book_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rank_book_name"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:maxLines="2"
+        android:text="111111111111111111111111111111"
+        android:textColor="#848484"
+        android:textSize="10sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rank_book_major"
+        android:layout_below="@+id/rank_book_content"
+        android:layout_margin="10dp"
+        android:textSize="12sp"
+        android:textColor="#16f725"
+        android:text="玄幻"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rank_book_minor"
+        android:layout_toEndOf="@+id/rank_book_major"
+        android:layout_alignBottom="@+id/rank_book_major"
+        android:text="东方玄幻"
+        android:textSize="8sp"
+        android:textColor="#83fca4"/>
+
+    <TextView
+        android:id="@+id/rank_book_ranking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/rank_book_name"
+        android:layout_marginRight="10dp"
+        android:text="1"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+</RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#333333"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"/>
+</LinearLayout>

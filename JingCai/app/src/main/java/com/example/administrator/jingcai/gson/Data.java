@@ -9,5 +9,9 @@ public class Data {
     @SerializedName("author_name")
     public String authorName;
     @SerializedName("thumbnail_pic_s")
-    public String picUrl;
+    public String picUrl1;
+    @SerializedName("thumbnail_pic_s02")
+    public String picUrl2;
+    @SerializedName("thumbnail_pic_s03")
+    public String picUrl3;
 }

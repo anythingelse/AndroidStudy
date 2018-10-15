@@ -8,7 +8,9 @@ public class News extends DataSupport {
     private String date;
     private String authorName;
     private String url;
-    private String picUrl;
+    private String picUrl1;
+    private String picUrl2;
+    private String picUrl3;
 
     public String getAuthorName() {
         return authorName;
@@ -23,9 +25,9 @@ public class News extends DataSupport {
         this.title = title;
     }
 
-    public void setPicUrl(String picUrl) {
+    public void setPicUrl1(String picUrl) {
 
-        this.picUrl = picUrl;
+        this.picUrl1 = picUrl;
     }
 
     public void setId(int id) {
@@ -53,9 +55,28 @@ public class News extends DataSupport {
         return title;
     }
 
-    public String getPicUrl() {
+    public void setPicUrl3(String picUrl3) {
+        this.picUrl3 = picUrl3;
+    }
 
-        return picUrl;
+    public void setPicUrl2(String picUrl2) {
+
+        this.picUrl2 = picUrl2;
+    }
+
+    public String getPicUrl3() {
+
+        return picUrl3;
+    }
+
+    public String getPicUrl2() {
+
+        return picUrl2;
+    }
+
+    public String getPicUrl1() {
+
+        return picUrl1;
     }
 
     public int getId() {

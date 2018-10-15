@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#dedcdc"
+        android:layout_margin="2dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:text="排行榜"
+            android:textColor="#fd0303"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/list_more"
+            android:src="@drawable/list"
+            android:layout_marginRight="5dp"/>
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:id="@+id/search_iv"
+            android:src="@drawable/search"
+            android:layout_toStartOf="@+id/list_more"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp" />
+
+        <EditText
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:id="@+id/search_et"
+            android:layout_margin="5dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/search_iv"
+            android:background="@drawable/search_box" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/layout_hot"
+        android:layout_weight="1"
+        android:layout_margin="2dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorHot">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:text="最热榜"
+                android:textColor="#d8fdfdfd"
+                android:textSize="12sp"
+                android:layout_margin="5dp"/>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:id="@+id/hot_more"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/more"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/hot_more"
+                android:layout_marginRight="5dp"
+                android:text="more"
+                android:textColor="#ffffff"
+                android:textSize="5sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout_search"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="2dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorCool">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:text="热搜榜"
+                android:textColor="#d8fdfdfd"
+                android:textSize="12sp"
+                android:layout_margin="5dp"/>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:id="@+id/search_more"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/more"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/search_more"
+                android:layout_marginRight="5dp"
+                android:text="more"
+                android:textColor="#ffffff"
+                android:textSize="5sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout_new"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorCool">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:text="新书榜"
+                android:textColor="#d8fdfdfd"
+                android:textSize="12sp"
+                android:layout_margin="5dp"/>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:id="@+id/new_more"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/more"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/new_more"
+                android:layout_marginRight="5dp"
+                android:text="more"
+                android:textColor="#ffffff"
+                android:textSize="5sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rv_book_ranking">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>
