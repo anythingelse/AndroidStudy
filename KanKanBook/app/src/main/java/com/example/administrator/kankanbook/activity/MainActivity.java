@@ -1,5 +1,6 @@
 package com.example.administrator.kankanbook.activity;
 
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -10,25 +11,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.kankanbook.R;
+import com.example.administrator.kankanbook.Util.Utility;
 import com.example.administrator.kankanbook.db.RankingList;
 import com.example.administrator.kankanbook.fragment.BookShelfFragment;
 import com.example.administrator.kankanbook.fragment.BookStoreFragment;
 import com.example.administrator.kankanbook.fragment.MeFragment;
 
+import org.litepal.LitePal;
 import org.litepal.crud.DataSupport;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
-
+    private ProgressDialog progressDialog;
     private ImageView title_back;
     private TextView tv_title;
-
+    private String HotIdUrl = "http://novel.juhe.im/rank/54d42d92321052167dfb75e3";
+    private String SearchIdUrl = "http://novel.juhe.im/rank/5a684515fc84c2b8efaa9875";
+    private String NewIdUrl = "http://novel.juhe.im/rank/5a39d453fc84c2b8ef885812";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DataSupport.deleteAll(RankingList.class);
+        LitePal.getDatabase();
         initView();
     }
 
@@ -61,5 +66,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        Utility.getBookRankingList(HotIdUrl,RankingList.STYLE_HOT);
+        Utility.getBookRankingList(SearchIdUrl,RankingList.STYLE_SEARCH);
+        Utility.getBookRankingList(NewIdUrl,RankingList.STYLE_NEW);
+
     }
 }

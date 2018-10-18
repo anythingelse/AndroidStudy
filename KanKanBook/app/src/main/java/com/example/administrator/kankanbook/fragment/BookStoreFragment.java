@@ -15,10 +15,12 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.administrator.kankanbook.R;
 import com.example.administrator.kankanbook.Util.HttpUtil;
+import com.example.administrator.kankanbook.Util.Utility;
 import com.example.administrator.kankanbook.adapter.BookRankingAdapter;
 import com.example.administrator.kankanbook.db.RankingList;
 import com.example.administrator.kankanbook.gson.BookRankingDetails;
@@ -37,19 +39,18 @@ import okhttp3.Response;
 
 
 public class BookStoreFragment extends Fragment implements View.OnClickListener{
-    private String HotIdUrl = "http://novel.juhe.im/rank/54d43437d47d13ff21cad58b";
-    private String SearchIdUrl = "http://novel.juhe.im/rank/5a684515fc84c2b8efaa9875";
-    private String NewIdUrl = "http://novel.juhe.im/rank/5a39d453fc84c2b8ef885812";
+
 
     private EditText search_et;
     private ImageView search_iv;
     private ImageView list_more;
-    private LinearLayout layout_hot,layout_search,layout_new;
+    private RelativeLayout layout_hot,layout_search,layout_new;
     private ImageView hot_more,search_more,new_more;
     private RecyclerView rv_book_ranking;
     private ProgressDialog progressDialog;
 
     private List<RankingList> rankingLists = new ArrayList<>();
+    private List<RankingList> dataList = new ArrayList<>();
     private BookRankingAdapter adapter;
 
     @Nullable
@@ -67,10 +68,13 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener{
         new_more = view.findViewById(R.id.new_more);
         rv_book_ranking = view.findViewById(R.id.rv_book_ranking);
 
+        layout_hot.setOnClickListener(this);
+        layout_new.setOnClickListener(this);
+        layout_search.setOnClickListener(this);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        Log.d("TAG","name: "+getActivity().getResources());
         rv_book_ranking.setLayoutManager(layoutManager);
-        adapter = new BookRankingAdapter(rankingLists);
+        adapter = new BookRankingAdapter(dataList,getActivity());
         rv_book_ranking.setAdapter(adapter);
 
         return view;
@@ -84,90 +88,51 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener{
 
     @SuppressLint("ResourceAsColor")
     public void queryHotList(){
-        layout_hot.setBackgroundColor(R.color.colorHot);
-        layout_search.setBackgroundColor(R.color.colorCool);
-        layout_new.setBackgroundColor(R.color.colorCool);
-        rankingLists = DataSupport.findAll(RankingList.class);
+        layout_hot.setBackgroundColor(getActivity().getResources().getColor(R.color.colorHot));
+        layout_search.setBackgroundColor(getActivity().getResources().getColor(R.color.colorCool));
+        layout_new.setBackgroundColor(getActivity().getResources().getColor(R.color.colorCool));
+        rankingLists = DataSupport.where("bookStyle = ?","0").find(RankingList.class);
         if (rankingLists.size() > 0){
+            dataList.clear();
+            dataList.addAll(rankingLists);
             adapter.notifyDataSetChanged();
-        }else {
-            getBookRankingList(HotIdUrl);
         }
     }
-
-    public void getBookRankingList(String url){
-        showProgressDialog();
-        HttpUtil.sendOkHttpRequest(url, new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.d("TAG","e : " + e.getMessage());
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            Toast.makeText(getContext(),"加载失败",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String responseText = response.body().string();
-                Gson gson = new Gson();
-                List<Books> booksList = gson.fromJson(responseText, BookRankingDetails.class).ranking.books;
-                int t = 1;
-                rankingLists.clear();
-                for (Books books : booksList) {
-                    RankingList rankingList = new RankingList();
-                    rankingList.setBookAuthor(books.bookAuthor);
-                    rankingList.setBookId(books.bookId);
-                    rankingList.setBookMajorCate(books.bookMajorCate);
-                    rankingList.setBookMinorCate(books.bookMinorCate);
-                    rankingList.setBookShortIntro(books.bookShortIntro);
-                    rankingList.setBookTitle(books.bookTitle);
-                    rankingList.setRanking(t);
-
-                    if (t <= 20) {
-                        rankingLists.add(rankingList);
-                    }
-                    rankingList.save();
-                    t++;
-                }
-                closeProgressDialog();
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        adapter.notifyDataSetChanged();
-                        Log.d("TAG","size:" + rankingLists.size());
-                    }
-                });
-            }
-        });
+    @SuppressLint("ResourceAsColor")
+    public void querySearchList(){
+        layout_hot.setBackgroundColor(getActivity().getResources().getColor(R.color.colorCool));
+        layout_search.setBackgroundColor(getActivity().getResources().getColor(R.color.colorHot));
+        layout_new.setBackgroundColor(getActivity().getResources().getColor(R.color.colorCool));
+        rankingLists = DataSupport.where("bookStyle = ?","1").find(RankingList.class);
+        if (rankingLists.size() > 0){
+            dataList.clear();
+            dataList.addAll(rankingLists);
+            adapter.notifyDataSetChanged();
+        }
+    }
+    @SuppressLint("ResourceAsColor")
+    public void queryNewList(){
+        layout_hot.setBackgroundColor(getActivity().getResources().getColor(R.color.colorCool));
+        layout_search.setBackgroundColor(getActivity().getResources().getColor(R.color.colorCool));
+        layout_new.setBackgroundColor(getActivity().getResources().getColor(R.color.colorHot));
+        rankingLists = DataSupport.where("bookStyle = ?","2").find(RankingList.class);
+        if (rankingLists.size() > 0){
+            dataList.clear();
+            dataList.addAll(rankingLists);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.layout_hot:
+                queryHotList();break;
+            case R.id.layout_search:
+                querySearchList();break;
+            case R.id.layout_new:
+                queryNewList();break;
+        }
+    }
 
-    }
-    /**
-     * 显示进度对话框
-     */
-    private void showProgressDialog(){
-        if (progressDialog == null){
-            progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setMessage("正在加载...");
-            progressDialog.setCanceledOnTouchOutside(false);
-        }
-        progressDialog.show();
-    }
-    /**
-     * 关闭进度对话框
-     */
-    private void closeProgressDialog(){
-        if (progressDialog != null){
-            progressDialog.dismiss();
-        }
-    }
 }

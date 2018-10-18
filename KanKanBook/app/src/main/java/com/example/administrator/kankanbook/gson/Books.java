@@ -15,4 +15,6 @@ public class Books {
     public String bookMajorCate;//主分类
     @SerializedName("minorCate")
     public String bookMinorCate;//子分类
+    @SerializedName("cover")
+    public String bookPicUrl;
 }

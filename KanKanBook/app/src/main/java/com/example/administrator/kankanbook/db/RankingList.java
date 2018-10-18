@@ -11,6 +11,27 @@ public class RankingList extends DataSupport{
     private String bookShortIntro;//短文预览
     private String bookMajorCate;//主分类
     private String bookMinorCate;//子分类
+    private String bookPicUrl;
+    private int bookStyle;
+    final static public int STYLE_HOT = 0;
+    final static public int STYLE_SEARCH = 1;
+    final static public  int STYLE_NEW = 2;
+
+    public String getBookPicUrl() {
+        return bookPicUrl;
+    }
+
+    public void setBookPicUrl(String bookPicUrl) {
+        this.bookPicUrl = bookPicUrl;
+    }
+
+    public int getBookStyle() {
+        return bookStyle;
+    }
+
+    public void setBookStyle(int bookStyle) {
+        this.bookStyle = bookStyle;
+    }
 
     public int getId() {
         return id;
