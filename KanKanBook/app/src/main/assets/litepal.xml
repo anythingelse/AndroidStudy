@@ -6,5 +6,7 @@
     <list>
         <mapping class="com.example.administrator.kankanbook.db.RankingList"/>
         <mapping class="com.example.administrator.kankanbook.db.BookInfo"/>
+        <mapping class="com.example.administrator.kankanbook.db.BookSource"/>
+        <mapping class="com.example.administrator.kankanbook.db.ChapterList"/>
     </list>
 </litepal>

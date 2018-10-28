@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_chapter"
+        android:layout_margin="5dp"
+        android:maxLines="1"
+        android:textSize="10sp"
+        android:textColor="#342424" />
+
+</LinearLayout>

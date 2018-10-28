@@ -31,7 +31,6 @@ public class Utility {
                 String responseText = response.body().string();
                 Gson gson = new Gson();
                 List<Books> booksList = gson.fromJson(responseText, BookRankingDetails.class).ranking.books;
-                int t = 1;
                 for (Books books : booksList) {
                     RankingList rankingList = new RankingList();
                     rankingList.setBookAuthor(books.bookAuthor);
@@ -43,18 +42,13 @@ public class Utility {
                     String picUrl = TextUtils.substring(URLDecoder.decode(books.bookPicUrl,"UTF-8"),
                             7,URLDecoder.decode(books.bookPicUrl,"UTF-8").length());
                     rankingList.setBookPicUrl(picUrl);
-                    rankingList.setRanking(t);
                     switch (style){
                         case RankingList.STYLE_HOT:rankingList.setBookStyle(RankingList.STYLE_HOT);break;
                         case RankingList.STYLE_SEARCH:rankingList.setBookStyle(RankingList.STYLE_SEARCH);break;
                         case RankingList.STYLE_NEW:rankingList.setBookStyle(RankingList.STYLE_NEW);break;
                         default:break;
                     }
-
-                    if (t <= 30) {
                         rankingList.save();
-                    }
-                    t++;
                 }
 
             }

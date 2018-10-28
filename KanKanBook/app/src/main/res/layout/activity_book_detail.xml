@@ -32,7 +32,7 @@
                     android:layout_toEndOf="@+id/detail_book_img"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
-                    android:text="圣墟"
+
                     android:textStyle="bold"
                     android:textColor="#000"
                     android:textSize="15sp"
@@ -41,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/detail_book_author"
-                    android:text="辰东"
+
                     android:layout_below="@+id/detail_book_name"
                     android:layout_toEndOf="@+id/detail_book_img"
                     android:textColor="#7091fc"
@@ -53,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/detail_book_wordcount"
-                    android:text="4959505字"
+
                     android:textSize="10sp"
                     android:layout_below="@+id/detail_book_author"
                     android:layout_toEndOf="@+id/detail_book_img"
@@ -66,7 +66,7 @@
                     android:layout_below="@+id/detail_book_wordcount"
                     android:layout_marginTop="5dp"
                     android:layout_alignStart="@+id/detail_book_name"
-                    android:text="玄幻"
+
                     android:textColor="#9a50fc"
                     android:textSize="14sp" />
 
@@ -76,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/detail_book_major"
                     android:layout_toEndOf="@+id/detail_book_name"
-                    android:text="东方玄幻"
+
                     android:layout_marginLeft="5dp"
                     android:textColor="#d498fc"
                     android:textSize="10sp" />
@@ -105,7 +105,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/detail_book_score"
                         android:layout_below="@+id/detail_book_pinfen"
-                        android:text="10"
+
                         android:layout_centerHorizontal="true"
                         android:textColor="@color/colorHot"
                         android:textSize="20sp"/>
@@ -122,15 +122,16 @@
                     android:layout_below="@+id/detail_book_major"
                     android:layout_margin="5dp"/>
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/detail_book_chapterNew"
                     android:layout_below="@+id/detail_book_newchapter"
                     android:layout_toEndOf="@+id/detail_book_img"
                     android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:maxLines="2"
                     android:textColor="#3145f9"
-                    android:text="江南城隐居着大前辈 第2265章 服务结束，请五星好评（求月票）"
+
                     android:textSize="9sp"/>
             </RelativeLayout>
             <View
@@ -161,7 +162,7 @@
                     android:layout_below="@+id/view_color"
                     android:layout_margin="5dp"
                     android:id="@+id/detail_book_content"
-                    android:text="11111111111111111111111"
+
                     android:textSize="14sp"
                     android:textColor="#a3a2a2"/>
             </RelativeLayout>
@@ -170,6 +171,35 @@
                 android:layout_height="0.5dp"
                 android:background="#2b2a2a"
                 />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <View
+                    android:layout_width="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_height="18dp"
+                    android:background="#dc010f"
+                    android:id="@+id/view_color2"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="章节目录"
+                    android:layout_toEndOf="@+id/view_color2"
+                    android:layout_alignBottom="@+id/view_color2"
+                    android:textColor="#000"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/view_color2"
+                    android:layout_margin="5dp"
+                    android:id="@+id/rv_book_chapter">
+
+                </android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
+
+
         </LinearLayout>
 
     </ScrollView>

@@ -57,7 +57,6 @@ public class BookRankingAdapter extends RecyclerView.Adapter<BookRankingAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         RankingList rankingList = mRankingList.get(position);
-        holder.rank_book_ranking.setText(rankingList.getRanking()+"");
         holder.rank_book_minor.setText(rankingList.getBookMinorCate());
         holder.rank_book_content.setText(rankingList.getBookShortIntro());
         holder.rank_book_name.setText(rankingList.getBookTitle());
@@ -73,7 +72,7 @@ public class BookRankingAdapter extends RecyclerView.Adapter<BookRankingAdapter.
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         TextView rank_book_name,rank_book_author,rank_book_content,
-                rank_book_major,rank_book_minor,rank_book_ranking;
+                rank_book_major,rank_book_minor;
         ImageView rank_book_img;
         View rankView;
         public ViewHolder(View itemView) {
@@ -84,7 +83,6 @@ public class BookRankingAdapter extends RecyclerView.Adapter<BookRankingAdapter.
             rank_book_content = itemView.findViewById(R.id.rank_book_content);
             rank_book_major = itemView.findViewById(R.id.rank_book_major);
             rank_book_minor = itemView.findViewById(R.id.rank_book_minor);
-            rank_book_ranking = itemView.findViewById(R.id.rank_book_ranking);
             rank_book_img = itemView.findViewById(R.id.rank_book_img);
         }
     }

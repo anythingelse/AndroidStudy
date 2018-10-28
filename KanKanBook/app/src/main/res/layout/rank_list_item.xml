@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -34,7 +35,6 @@
         android:id="@+id/rank_book_name"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:text="圣墟"
         android:textStyle="bold"
         android:textColor="#000"
         android:textSize="13sp"
@@ -43,7 +43,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/rank_book_author"
-        android:text="辰东"
         android:layout_below="@+id/rank_book_name"
         android:textColor="#7091fc"
         android:textSize="10sp"
@@ -59,7 +58,6 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:maxLines="3"
-        android:text="111111111111111111111111111111"
         android:textColor="#848484"
         android:textSize="10sp" />
 
@@ -70,7 +68,7 @@
             android:layout_alignParentBottom="true"
             android:layout_margin="5dp"
             android:layout_alignStart="@+id/rank_book_name"
-            android:text="玄幻"
+
             android:textColor="#9a50fc"
             android:textSize="12sp" />
     <TextView
@@ -79,21 +77,10 @@
         android:id="@+id/rank_book_minor"
         android:layout_toEndOf="@+id/rank_book_major"
         android:layout_alignBottom="@+id/rank_book_major"
-        android:text="东方玄幻"
+
         android:textSize="8sp"
         android:textColor="#d498fc"/>
 
-    <TextView
-        android:id="@+id/rank_book_ranking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/rank_book_name"
-        android:layout_marginRight="10dp"
-        android:text="1"
-        android:textColor="#fd710d"
-        android:textSize="18sp"
-        android:textStyle="bold" />
     </RelativeLayout>
     </LinearLayout>
 
