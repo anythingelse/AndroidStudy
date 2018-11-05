@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context=".activity.BookDetailActivity">
 
+    <include layout="@layout/title_bar"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,6 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -188,7 +192,11 @@
                     android:layout_toEndOf="@+id/view_color2"
                     android:layout_alignBottom="@+id/view_color2"
                     android:textColor="#000"/>
-
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:id="@+id/progress_detail"
+                    android:visibility="gone"/>
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

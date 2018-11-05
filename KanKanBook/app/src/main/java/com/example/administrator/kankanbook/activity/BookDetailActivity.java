@@ -7,8 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -44,6 +46,7 @@ public class BookDetailActivity extends AppCompatActivity {
             detail_book_chapterNew,detail_book_content;
     private ImageView detail_book_img;
     private Button detail_run_btn,detail_read_btn;
+    private ImageView btn_back;
     private String bookName,bookAuthor,bookMajor,bookMinor,booklastChapter,bookContent;
     private int bookWordCount;
     private String bookScore;
@@ -51,7 +54,9 @@ public class BookDetailActivity extends AppCompatActivity {
     private String bookId;
     private String sourceId = null;
     private RecyclerView rv_book_chapter;
+    private ProgressBar progressBar;
     private List<ChapterList> chapterLists = new ArrayList<>();
+    List<ChapterList> lists = new ArrayList<>();
     BookChapterAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +78,26 @@ public class BookDetailActivity extends AppCompatActivity {
         detail_run_btn = findViewById(R.id.detail_run_btn);
         detail_read_btn = findViewById(R.id.detail_read_btn);
         rv_book_chapter = findViewById(R.id.rv_book_chapter);
-
+        progressBar = findViewById(R.id.progress_detail);
+        btn_back = findViewById(R.id.title_back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        detail_read_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ChapterList chapterList = chapterLists.get(0);
+                Intent intent = new Intent(BookDetailActivity.this,BookContentActivity.class);
+                intent.putExtra("title",chapterList.getTitle());
+                intent.putExtra("link",chapterList.getLink());
+                intent.putExtra("order",chapterList.getOrder());
+                intent.putExtra("bookId",chapterList.getBookId());
+                startActivity(intent);
+            }
+        });
 
         detail_book_name.setText(bookName);
         detail_book_author.setText(bookAuthor);
@@ -82,16 +106,15 @@ public class BookDetailActivity extends AppCompatActivity {
         detail_book_content.setText(bookContent);
         Glide.with(this).load(picUrl).into(detail_book_img);
 
-        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2,
-                StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(10,
+                StaggeredGridLayoutManager.HORIZONTAL);
         rv_book_chapter.setLayoutManager(manager);
-        adapter = new BookChapterAdapter(chapterLists);
+        adapter = new BookChapterAdapter(chapterLists,this);
         rv_book_chapter.setAdapter(adapter);
 
         List<BookSource> bookSources = DataSupport.where("bookId = ?",bookId).find(BookSource.class);
         if (bookSources.size() > 0){
             sourceId = bookSources.get(0).sourceId;
-            Log.d("TAG","sourceId1:"+sourceId);
         }else getSourceId();
 
         if (sourceId!=null){
@@ -113,13 +136,14 @@ public class BookDetailActivity extends AppCompatActivity {
 
     public void initRecyclerView(){
 
-        List<ChapterList> lists = DataSupport.where("bookId = ?",bookId).find(ChapterList.class);
+        lists = DataSupport.where("bookId = ?",bookId).find(ChapterList.class);
         if (lists.size() > 0){
             chapterLists.clear();
             chapterLists.addAll(lists);
             adapter.notifyDataSetChanged();
             initView3();
         }else initView3();
+
     }
 
     public void initView2(){
@@ -157,6 +181,7 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     public void initView3(){
+        progressBar.setVisibility(View.VISIBLE);
         String url = "http://novel.juhe.im/book-chapters/"+sourceId;
         HttpUtil.sendOkHttpRequest(url, new Callback() {
             @Override
@@ -169,6 +194,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 Gson gson = new Gson();
                 List<Chapters> chaptersList = gson.fromJson(response.body().string(),
                         BookChapters.class).chapters;
+                DataSupport.deleteAll(ChapterList.class);
                 for (Chapters chapters : chaptersList){
                     ChapterList chapterList = new ChapterList();
                     chapterList.setBookId(bookId);
@@ -180,7 +206,14 @@ public class BookDetailActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        initRecyclerView();
+                        lists = DataSupport.where("bookId = ?",bookId).find(ChapterList.class);
+                        Log.d("TAG","listSize : " + lists.size());
+                        if (lists.size() > 0){
+                            chapterLists.clear();
+                            chapterLists.addAll(lists);
+                            adapter.notifyDataSetChanged();
+                        }
+                        progressBar.setVisibility(View.GONE);
                     }
                 });
             }
@@ -205,7 +238,6 @@ public class BookDetailActivity extends AppCompatActivity {
                     bookSource.setBookId(bookId);
                     bookSource.setSourceId(bookSourceData.sourceId);
                     bookSource.setSourceName(bookSourceData.sourceName);
-                    Log.d("TAG","sourceId2:"+bookSourceData.sourceId);
                     bookSource.save();
                 }
                 runOnUiThread(new Runnable() {
@@ -213,7 +245,6 @@ public class BookDetailActivity extends AppCompatActivity {
                     public void run() {
                         List<BookSource> bookSources = DataSupport.where("bookId = ?",bookId).find(BookSource.class);
                             sourceId = bookSources.get(0).sourceId;
-                        Log.d("TAG","sourceId3:"+sourceId);
                     }
                 });
             }

@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.BookDetailActivity"></activity>
+        <activity android:name=".activity.BookDetailActivity" />
+        <activity android:name=".activity.BookContentActivity"></activity>
     </application>
 
 </manifest>
