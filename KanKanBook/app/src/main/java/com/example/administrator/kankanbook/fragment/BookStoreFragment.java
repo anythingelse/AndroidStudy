@@ -3,6 +3,7 @@ package com.example.administrator.kankanbook.fragment;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.example.administrator.kankanbook.R;
 import com.example.administrator.kankanbook.Util.HttpUtil;
 import com.example.administrator.kankanbook.Util.Utility;
+import com.example.administrator.kankanbook.activity.SearchActivity;
 import com.example.administrator.kankanbook.adapter.BookRankingAdapter;
 import com.example.administrator.kankanbook.db.RankingList;
 import com.example.administrator.kankanbook.gson.BookRankingDetails;
@@ -47,7 +49,6 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener{
     private RelativeLayout layout_hot,layout_search,layout_new;
     private ImageView hot_more,search_more,new_more;
     private RecyclerView rv_book_ranking;
-    private ProgressDialog progressDialog;
 
     private List<RankingList> rankingLists = new ArrayList<>();
     private List<RankingList> dataList = new ArrayList<>();
@@ -67,6 +68,15 @@ public class BookStoreFragment extends Fragment implements View.OnClickListener{
         search_more = view.findViewById(R.id.search_more);
         new_more = view.findViewById(R.id.new_more);
         rv_book_ranking = view.findViewById(R.id.rv_book_ranking);
+
+        search_iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),SearchActivity.class);
+                intent.putExtra("keyword",search_et.getText().toString());
+                startActivity(intent);
+            }
+        });
 
         layout_hot.setOnClickListener(this);
         layout_new.setOnClickListener(this);

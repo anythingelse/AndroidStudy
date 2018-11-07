@@ -1,6 +1,7 @@
 package com.example.administrator.kankanbook.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import com.example.administrator.kankanbook.R;
 import com.example.administrator.kankanbook.Util.HttpUtil;
 import com.example.administrator.kankanbook.adapter.BookChapterAdapter;
 import com.example.administrator.kankanbook.db.BookInfo;
+import com.example.administrator.kankanbook.db.BookShelfList;
 import com.example.administrator.kankanbook.db.BookSource;
 import com.example.administrator.kankanbook.db.ChapterList;
 import com.example.administrator.kankanbook.gson.BookChapters;
@@ -58,6 +60,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private List<ChapterList> chapterLists = new ArrayList<>();
     List<ChapterList> lists = new ArrayList<>();
     BookChapterAdapter adapter;
+    private boolean isRun;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +89,15 @@ public class BookDetailActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        if (isRun){
+            detail_run_btn.setText("已追");
+            detail_run_btn.setBackgroundColor(getResources().getColor(R.color.colorIsRun));
+        }else {
+            detail_run_btn.setText("追书");
+            detail_run_btn.setBackgroundColor(getResources().getColor(R.color.colorNoRun));
+        }
+
         detail_read_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,6 +110,32 @@ public class BookDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        detail_run_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isRun){
+                    detail_run_btn.setText("追书");
+                    detail_run_btn.setBackgroundColor(getResources().getColor(R.color.colorNoRun));
+                    DataSupport.deleteAll(BookShelfList.class,"bookId = ?",bookId);
+                    isRun = false;
+                }else {
+                    detail_run_btn.setText("已追");
+                    detail_run_btn.setBackgroundColor(getResources().getColor(R.color.colorIsRun));
+                    BookShelfList bookShelfList = new BookShelfList();
+                    bookShelfList.setBookAuthor(bookAuthor);
+                    bookShelfList.setBookTitle(bookName);
+                    bookShelfList.setOrder(chapterLists.get(0).getOrder());
+                    bookShelfList.setBookPicUrl(picUrl);
+                    bookShelfList.setBookId(bookId);
+                    bookShelfList.save();
+                    isRun = true;
+                }
+
+            }
+        });
+
+
 
         detail_book_name.setText(bookName);
         detail_book_author.setText(bookAuthor);
@@ -115,11 +153,9 @@ public class BookDetailActivity extends AppCompatActivity {
         List<BookSource> bookSources = DataSupport.where("bookId = ?",bookId).find(BookSource.class);
         if (bookSources.size() > 0){
             sourceId = bookSources.get(0).sourceId;
+            initRecyclerView();
         }else getSourceId();
 
-        if (sourceId!=null){
-            initRecyclerView();
-        }
 
         List<BookInfo> bookInfoList = DataSupport.where("bookId = ?",bookId).find(BookInfo.class);
         if (bookInfoList.size() > 0){
@@ -245,6 +281,7 @@ public class BookDetailActivity extends AppCompatActivity {
                     public void run() {
                         List<BookSource> bookSources = DataSupport.where("bookId = ?",bookId).find(BookSource.class);
                             sourceId = bookSources.get(0).sourceId;
+                        initRecyclerView();
                     }
                 });
             }
@@ -260,6 +297,10 @@ public class BookDetailActivity extends AppCompatActivity {
         bookMinor = intent.getStringExtra("bookMinorCate");
         bookContent = intent.getStringExtra("bookShortIntro");
         picUrl = intent.getStringExtra("bookPicUrl");
-        Log.d("TAG",bookId+","+bookName);
+
+        List<BookShelfList> lists = DataSupport.where("bookId = ?",bookId).find(BookShelfList.class);
+        if (lists.size() > 0){
+            isRun = true;
+        }else isRun = false;
     }
 }

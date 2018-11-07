@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.administrator.kankanbook.R;
 import com.example.administrator.kankanbook.Util.HttpUtil;
+import com.example.administrator.kankanbook.db.BookShelfList;
 import com.example.administrator.kankanbook.db.ChapterList;
 import com.example.administrator.kankanbook.gson.BookContents;
 import com.google.gson.Gson;
@@ -110,8 +111,9 @@ public class BookContentActivity extends AppCompatActivity implements GestureDet
         bookTitle = intent.getStringExtra("title");
         bookLink = intent.getStringExtra("link");
         bookOrder = intent.getIntExtra("order",1);
-        Log.d("TAG","order: " + bookOrder);
-        Log.d("TAG","bookId: " + bookId);
+        BookShelfList shelfList = new BookShelfList();
+        shelfList.setOrder(bookOrder);
+        shelfList.updateAll("bookId = ?",bookId);
     }
 
 

@@ -222,7 +222,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/detail_run_btn"
             android:layout_weight="1"
-            android:background="#faf8e9"
+            android:background="@color/colorNoRun"
             android:textSize="20sp"
             android:textColor="@color/colorHot"
             android:text="追书"/>
